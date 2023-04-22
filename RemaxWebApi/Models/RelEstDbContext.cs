@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RemaxWebApi.Models;
 
 namespace RemaxWebAPI.Models
 {
@@ -8,6 +9,10 @@ namespace RemaxWebAPI.Models
             : base(options)
         {
         }
-        public DbSet<Leads> Leads { get; set; }
+        public DbSet<CodeTypes> CodeTypes { get; set; }
+        public DbSet<Leads> Leads
+        {
+            get; set;
+        }
     }
 }
