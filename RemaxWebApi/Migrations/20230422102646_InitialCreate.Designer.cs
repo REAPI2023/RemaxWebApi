@@ -12,7 +12,7 @@ using RemaxWebAPI.Models;
 namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
-    [Migration("20230421121500_InitialCreate")]
+    [Migration("20230422102646_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,6 +61,20 @@ namespace RemaxWebApi.Migrations
                     b.HasKey("LeadId");
 
                     b.ToTable("Leads");
+                });
+
+            modelBuilder.Entity("RemaxWebApi.Models.CodeTypes", b =>
+                {
+                    b.Property<string>("ShortCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShortCode");
+
+                    b.ToTable("CodeTypes");
                 });
 #pragma warning restore 612, 618
         }

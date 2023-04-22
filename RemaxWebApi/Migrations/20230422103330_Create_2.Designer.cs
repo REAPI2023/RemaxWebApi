@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RemaxWebAPI.Models;
 
@@ -11,9 +12,11 @@ using RemaxWebAPI.Models;
 namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
-    partial class RelEstDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230422103330_Create_2")]
+    partial class Create_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,55 +93,6 @@ namespace RemaxWebApi.Migrations
                     b.HasKey("ShortCode");
 
                     b.ToTable("CodeTypes");
-                });
-
-            modelBuilder.Entity("RemaxWebApi.Models.Property", b =>
-                {
-                    b.Property<int>("PropertyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PropertyId"));
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("Facility")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PropertyType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PropertyId");
-
-                    b.ToTable("Property");
-                });
-
-            modelBuilder.Entity("RemaxWebApi.Models.Schedule", b =>
-                {
-                    b.Property<int>("ScheduleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"));
-
-                    b.Property<int?>("Facility")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LeadId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ScheduleTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ScheduleId");
-
-                    b.ToTable("Schedule");
                 });
 #pragma warning restore 612, 618
         }

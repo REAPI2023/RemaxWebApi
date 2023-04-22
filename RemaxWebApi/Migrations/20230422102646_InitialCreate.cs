@@ -12,6 +12,18 @@ namespace RemaxWebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CodeTypes",
+                columns: table => new
+                {
+                    ShortCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeTypes", x => x.ShortCode);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Leads",
                 columns: table => new
                 {
@@ -35,6 +47,9 @@ namespace RemaxWebApi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CodeTypes");
+
             migrationBuilder.DropTable(
                 name: "Leads");
         }
