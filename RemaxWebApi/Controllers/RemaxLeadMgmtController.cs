@@ -16,8 +16,8 @@ namespace RemaxWebApi.Controllers
         }
 
         // GET: RemaxLeadMgmtController
-        [HttpGet(Name ="GetLeadDetails")]
-        public async Task<IActionResult> AllLeadDetails()
+        [HttpGet(Name = "GetLeadDetails")]
+        public async Task<IActionResult> Index()
         {
             return Ok(await _context.Leads.ToListAsync());
         }
@@ -41,43 +41,45 @@ namespace RemaxWebApi.Controllers
         //    return View();
         //}
 
-        // POST: RemaxLeadMgmtController/Create
-        //[HttpPost]
+        //POST: RemaxLeadMgmtController/Create
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IAsyncResult> Create(Leads collection)
-        //{
-        //    try
-        //    {
-        //        _context.Leads.Add(collection);
-        //        return Ok(await _context.SaveChangesAsync());
-        //        //return RedirectToAction(nameof(AllLeadDetails));
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-        //}
+        public async Task<int?> Create(IEnumerable<Leads> collection)
+        {
+            try
+            {
+                _context.Leads.AddRange(collection);
+                return await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(AllLeadDetails));
+            }
+            catch
+            {
+                return null;
+                //return BadRequest();        //    }
+            }
 
-        //// GET: RemaxLeadMgmtController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
+            //// GET: RemaxLeadMgmtController/Edit/5
+            //public ActionResult Edit(int id)
+            //{
+            //    return View();
+            //}
+        }
         //// POST: RemaxLeadMgmtController/Edit/5
-        //[HttpPost]
+        [HttpPut("{id}")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        public async Task<IActionResult> Edit(int id, Leads lead)
+        {
+            try
+            {
+                _context.Leads.Update(lead);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         //// GET: RemaxLeadMgmtController/Delete/5
         //public ActionResult Delete(int id)
@@ -86,22 +88,29 @@ namespace RemaxWebApi.Controllers
         //}
 
         //// POST: RemaxLeadMgmtController/Delete/5
-        //[HttpPost]
+        [HttpDelete("{id}")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        public async Task<int> Delete(int id)
+        {
+            try
+            {
+                Leads? lead = _context.Leads.FirstOrDefault(x => x.LeadId == id);
+                if (lead != null)
+                {
+                    _context.Leads.Remove(lead);
+                    return await _context.SaveChangesAsync();
+                }
+                else
+                    return -1;
+                    
+                //return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
 
-        [HttpGet("Throw")]
-        public IActionResult Throw() =>
-    throw new Exception("Sample exception.");
+
     }
 }
