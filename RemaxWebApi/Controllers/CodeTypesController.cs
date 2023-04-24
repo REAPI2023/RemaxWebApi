@@ -43,5 +43,40 @@ namespace RemaxWebApi.Controllers
                 }
             }
         }
+        [HttpPut]       
+        public async Task<IActionResult> Edit([FromBody] CodeTypes codeTypes)
+        {
+            try
+            {
+                _context.CodeTypes.Update(codeTypes);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpDelete("{shortCode}")]        
+        public async Task<int> Delete(string shortCode)
+        {
+            try
+            {
+                CodeTypes? codeTypes = _context.CodeTypes.FirstOrDefault(x => x.ShortCode == shortCode);
+                if (codeTypes != null)
+                {
+                    _context.CodeTypes.Remove(codeTypes);
+                    return await _context.SaveChangesAsync();
+                }
+                else
+                    return -1;
+                    
+                //return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
     }
 }
