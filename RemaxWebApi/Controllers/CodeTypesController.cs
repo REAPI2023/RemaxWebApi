@@ -28,7 +28,7 @@ namespace RemaxWebApi.Controllers
             try
             {
                 _context.CodeTypes.Add(codeTypes);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return Ok();
             }
             catch (Exception ex)

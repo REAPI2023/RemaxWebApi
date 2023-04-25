@@ -15,7 +15,8 @@ namespace RemaxWebAPI.Models
             get; set;
         }
         public DbSet<CodeTypeValues> CodeTypeValues { get; set; }
-        public DbSet<Property> Property { get; set; }
+        public DbSet<CommercialProperty> CommercialProperty { get; set; }
+        public DbSet<ResidentialProperty> ResidentialProperty { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
     }
 }
