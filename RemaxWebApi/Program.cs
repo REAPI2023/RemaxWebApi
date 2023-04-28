@@ -26,7 +26,7 @@ builder.Services.AddLogging((builder) =>
 var app = builder.Build();
 
 var loggerFactory = app.Services.GetService<ILoggerFactory>();
-loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+//loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
 
 app.UseMiddleware<ExceptionMiddleware>();
 // Configure the HTTP request pipeline.

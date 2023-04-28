@@ -9,11 +9,11 @@ namespace RemaxWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RemaxLeadMgmtController : ControllerBase
+    public class LeadMgmtController : ControllerBase
     {
         private readonly ILogger _logger;
         public readonly RelEstDbContext _context;
-        public RemaxLeadMgmtController(RelEstDbContext context, ILogger logger)
+        public LeadMgmtController(RelEstDbContext context,ILogger<LeadMgmtController> logger)
         {
             _context = context;
             _logger = logger;
