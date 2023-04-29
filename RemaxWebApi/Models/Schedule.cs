@@ -11,5 +11,7 @@ namespace RemaxWebApi.Models
         [ForeignKey("Leads")]
         public int LeadId { get; set; }
         public int? Facility { get; set; }
+        public string ScheduleType { get; set; }
+        public string ScheduleNotes { get; set; }
     }
 }
