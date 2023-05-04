@@ -52,21 +52,21 @@ namespace RemaxWebApi.Controllers
         public async Task<int?> Create(IEnumerable<Leads> collection)
         {
 
-            //_logger.Info($"Adding Leads Collection :{JsonSerializer.Serialize(collection)} ");
+            _logger.LogInformation($"Adding Leads Collection :{JsonSerializer.Serialize(collection)} ");
             _context.Leads.AddRange(collection);
             return await _context.SaveChangesAsync();
 
 
         }
         //// POST: RemaxLeadMgmtController/Edit/5
-        [HttpPut("{id}")]
+        [HttpPut]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Leads lead)
+        public async Task<int> Edit([FromBody] Leads lead)
         {
-
+            _logger.LogInformation($"Editing leads :{JsonSerializer.Serialize(lead)} ");
             _context.Leads.Update(lead);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
 
         }
 
