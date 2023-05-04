@@ -19,6 +19,11 @@ namespace RemaxWebApi.Controllers
         {
             return Ok(await _context.LeadNotes.OrderByDescending(x=>x.CreatedDateTime).ToListAsync());
         }
+        [HttpGet("{leadId}", Name = "LeadNotesDetailsbyID")]
+        public async Task<IActionResult> AllLeadNotessDetails(int leadId)
+        {
+            return Ok(await _context.LeadNotes.Where(x => x.LeadId==leadId).OrderByDescending(x => x.CreatedDateTime).ToListAsync());
+        }
         [HttpPost]
         public async Task<IActionResult> InsertCodeType([FromBody] LeadNotes leadNotes)
         {
