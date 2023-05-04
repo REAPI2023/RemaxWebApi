@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RemaxWebAPI.Models;
 
@@ -11,9 +12,11 @@ using RemaxWebAPI.Models;
 namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
-    partial class RelEstDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230429155105_Create_9")]
+    partial class Create_9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,8 +220,8 @@ namespace RemaxWebApi.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedBy")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedDateTime")
                         .HasColumnType("datetime2");
@@ -319,12 +322,6 @@ namespace RemaxWebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleId"));
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("Facility")
                         .HasColumnType("int");
 
@@ -332,19 +329,15 @@ namespace RemaxWebApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ScheduleNotes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ScheduleTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ScheduleType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedBy")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdatedDateTime")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ScheduleId");
 

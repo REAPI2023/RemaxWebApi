@@ -18,5 +18,6 @@ namespace RemaxWebAPI.Models
         public DbSet<CommercialProperty> CommercialProperty { get; set; }
         public DbSet<ResidentialProperty> ResidentialProperty { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<LeadNotes> LeadNotes { get; set; }
     }
 }
