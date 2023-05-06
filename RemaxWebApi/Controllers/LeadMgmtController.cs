@@ -40,20 +40,13 @@ namespace RemaxWebApi.Controllers
             return Ok(product);
         }
 
-        //// GET: RemaxLeadMgmtController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //POST: RemaxLeadMgmtController/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<int?> Create(IEnumerable<Leads> collection)
+        public async Task<int?> Create(Leads collection)
         {
 
             _logger.LogInformation($"Adding Leads Collection :{JsonSerializer.Serialize(collection)} ");
-            _context.Leads.AddRange(collection);
+            _context.Leads.Add(collection);
             return await _context.SaveChangesAsync();
 
 
