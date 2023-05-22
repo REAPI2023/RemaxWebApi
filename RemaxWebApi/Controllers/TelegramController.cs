@@ -21,7 +21,7 @@ namespace RemaxWebApi.Controllers
         {
             try
             {
-                
+                /*
                 string bot_Id = "6087752875:AAG0pQrD_qqp6CLx2o1BxvXGalfSB0T_XHY";
                 string group_Id = "-1001334352382";
                 string url = string.Format("https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}", bot_Id, group_Id, message);
@@ -29,6 +29,7 @@ namespace RemaxWebApi.Controllers
                 client.BaseAddress = new Uri(url);
                 var response = client.GetStringAsync(url).Result;
                 Console.WriteLine(response);
+                */
                 return Ok();
             }
             catch (Exception ex)

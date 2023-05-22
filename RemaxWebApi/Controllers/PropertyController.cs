@@ -38,6 +38,8 @@ namespace RemaxWebApi.Controllers
                 */
                 _context.ResidentialProperty.Add(residentialProperty);
                 await _context.SaveChangesAsync();
+                TelegramController tc = new TelegramController(_context);
+                await tc.SendMessage(string.Format("New Property Added . Property name : {0} with Property ID :-{1}", residentialProperty.PropertyName,residentialProperty.PropertyId));
                 return Ok();
             }
             catch (Exception ex)
