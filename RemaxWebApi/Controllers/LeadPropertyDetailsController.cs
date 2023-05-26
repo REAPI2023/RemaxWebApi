@@ -23,19 +23,45 @@ namespace RemaxWebApi.Controllers
         [HttpGet("{leadId}", Name = "GetLeadPropertyDetailsbyLeadID")]
         public async Task<IActionResult> GetAllLeadPropertyDetailsbyLeadID(int leadId)
         {
-            return Ok(await _context.LeadPropertyDetails.Where(x => x.LeadId==leadId).OrderByDescending(x => x.LeadPropertyID).ToListAsync());
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> InsertCodeType([FromBody] LeadPropertyDetails leadPropertyDetails)
+            List<int> leadIdList = new List<int>();
+            leadIdList= new List<int>(_context.LeadPropertyDetails.Where(x => x.LeadId==leadId).Select(y => y.PropertyId));
+            return Ok(await _context.ResidentialProperty.Where(x => leadIdList.Contains(x.PropertyId)).OrderByDescending(x => x.PropertyId).ToListAsync());
+        }
+        [HttpDelete]
+        public async Task<int> Delete([FromBody] LeadPropertyDetails leadPropertyDetails)
         {
             try
             {
-                leadPropertyDetails.CreatedDateTime = DateTime.Now;
-                leadPropertyDetails.UpdatedDateTime = DateTime.Now;
-                leadPropertyDetails.UpdatedBy="Admin";
-                leadPropertyDetails.CreatedBy="Admin";
-                _context.LeadPropertyDetails.Add(leadPropertyDetails);
+                LeadPropertyDetails? codeTypes = _context.LeadPropertyDetails.FirstOrDefault(x => x.LeadId == leadPropertyDetails.LeadId && x.PropertyId==leadPropertyDetails.PropertyId);
+                if (codeTypes != null)
+                {
+                    _context.LeadPropertyDetails.Remove(codeTypes);
+                    return await _context.SaveChangesAsync();
+                }
+                else
+                    return -1;
+
+                //return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> InsertLeadPropertyDetails([FromBody] List<LeadPropertyDetails> lstleadPropertyDetails)
+        {
+            try
+            {
+                foreach (var leadPropertyDetails in lstleadPropertyDetails)
+                {
+                    leadPropertyDetails.CreatedDateTime = DateTime.Now;
+                    leadPropertyDetails.UpdatedDateTime = DateTime.Now;
+                    leadPropertyDetails.UpdatedBy="Admin";
+                    leadPropertyDetails.CreatedBy="Admin";
+                    _context.LeadPropertyDetails.Add(leadPropertyDetails);
+                }
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -43,7 +69,7 @@ namespace RemaxWebApi.Controllers
             {
                 if (ex.InnerException!=null && ex.InnerException.Message.Contains("PK_LeadPropertyDetails"))
                 {
-                    throw new Exception(string.Format("A Record with {0} already exists in Database", leadPropertyDetails.PropertyId));
+                    throw new Exception(string.Format("A Record with {0} already exists in Database", "Link Property to Lead"));
                 }
                 else
                 {
