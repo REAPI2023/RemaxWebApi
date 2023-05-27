@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RemaxWebApi.Models;
-
+/*
+ dotnet ef migrations add Create_5 --project RemaxWebApi
+ dotnet ef database update --project RemaxWebApi
+ */
 namespace RemaxWebAPI.Models
 {
     public class RelEstDbContext : DbContext
@@ -20,5 +23,7 @@ namespace RemaxWebAPI.Models
         public DbSet<Schedule> Schedule { get; set; }
         public DbSet<LeadNotes> LeadNotes { get; set; }
         public DbSet<LeadPropertyDetails> LeadPropertyDetails { get; set; }
+        public DbSet<ModulePermissionDetails> ModulePermissionDetails { get; set; }
+        public DbSet<ModulePermission> ModulePermissions { get; set; }
     }
 }
