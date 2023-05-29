@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace RemaxWebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LeadMgmtController : ControllerBase
     {
