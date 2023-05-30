@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'RelEstAPI'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_868AA0B29A5945ED810C2B2CDA5C8BFB }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1CFB151FF9B14C27AA12DC2C7E48A180 }}
           package: .
