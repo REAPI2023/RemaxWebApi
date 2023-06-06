@@ -14,6 +14,48 @@ namespace RemaxWebApi.Controllers
         {
             _context = context;
         }
+
+        /*
+        select* from ModulePermissionDetails mpd
+        join CodeTypeValues ctv on ctv.CodeTypeShortCode='MODULES' and ctv.ShortCode=mpd.ModuleShortCode
+        where ModuleShortCode= 'CodeTypes'
+        */
+
+        [HttpGet("{moduleShortCode}", Name = "AllModuleActions")]
+        public List<CodeTypeValues> AllModuleActions(string moduleShortCode)
+        {
+            /*
+            var data = (from ctv in _context.CodeTypeValues
+                        join mpd in _context.ModulePermissionDetails
+                           on new { shortcode = ctv.ShortCode, moduleShortCode = ctv.CodeTypeShortCode }
+                           equals new { shortcode = mpd.ModuleShortCode, moduleShortCode = "MODULES" }
+                        where mpd.ModuleShortCode == moduleShortCode
+                        select new CodeTypeValues
+                        {
+                            CodeTypeShortCode= ctv.CodeTypeShortCode,
+                            ShortCode=ctv.ShortCode,
+                            Description=ctv.Description
+                        }).ToList();
+
+            return data;
+            */
+            var data = (from mpd in _context.ModulePermissionDetails 
+                        join ctv  in _context.CodeTypeValues
+                        on mpd.ModuleShortCode equals ctv.ShortCode   
+                        join action in _context.CodeTypeValues
+                        on mpd.PermissionShortCode equals action.ShortCode
+                        where mpd.ModuleShortCode == moduleShortCode & ctv.CodeTypeShortCode=="MODULES"
+                        select new CodeTypeValues
+                        {
+                            CodeTypeShortCode= moduleShortCode,
+                            ShortCode=action.ShortCode,
+                            Description=action.Description
+                        }).ToList();
+
+            return data;
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> InsertRoleModulePermissionDetails([FromBody] List<RoleModulePermissionDetails> lstleadPropertyDetails)
         {

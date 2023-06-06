@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RemaxWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_14 : Migration
+    public partial class Create_141 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

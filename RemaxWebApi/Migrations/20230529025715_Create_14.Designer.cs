@@ -13,7 +13,7 @@ namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
     [Migration("20230529025715_Create_14")]
-    partial class Create_14
+    partial class Create_141
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

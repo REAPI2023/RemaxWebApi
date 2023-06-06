@@ -5,7 +5,8 @@ namespace RemaxWebApi.Models
     public class RoleModulePermissionDetails
     {
         [Key]
-        public long RoleShortCode { get; set; }
+        [Required]
+        public string? RoleShortCode { get; set; }
         [Required]
         public string? ModuleShortCode { get; set; }
         [Required]
