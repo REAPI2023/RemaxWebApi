@@ -27,5 +27,8 @@ namespace RemaxWebAPI.Models
         public DbSet<ModulePermission> ModulePermissions { get; set; }
         public DbSet<RoleModulePermissionDetails> RoleModulePermissionDetails { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<ModuleRolePermissionDetails> ModuleRolePermissionDetails { get; set; }
+
+        
     }
 }

@@ -57,19 +57,40 @@ namespace RemaxWebApi.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> InsertRoleModulePermissionDetails([FromBody] List<RoleModulePermissionDetails> lstleadPropertyDetails)
+        public async Task<IActionResult> InsertRoleModulePermissionDetails([FromBody] List<ModuleRolePermissionDetails> lstleadPropertyDetails)
         {
             try
             {
-                foreach (var roleModulePermissionDetails in lstleadPropertyDetails)
+                if (lstleadPropertyDetails!=null && lstleadPropertyDetails.Count>0)
                 {
-                    roleModulePermissionDetails.CreatedDateTime = DateTime.Now;
-                    roleModulePermissionDetails.UpdatedDateTime = DateTime.Now;
-                    roleModulePermissionDetails.UpdatedBy="Admin";
-                    roleModulePermissionDetails.CreatedBy="Admin";
-                    _context.RoleModulePermissionDetails.Add(roleModulePermissionDetails);
+                    List<ModuleRolePermissionDetails> dbroles = _context.ModuleRolePermissionDetails.Where(x => x.RoleShortCode==lstleadPropertyDetails.First().RoleShortCode).ToList();
+
+                    foreach (var roleModulePermissionDetails in lstleadPropertyDetails)
+                    {
+                        if (dbroles.Where(x=>x.PermissionShortCode==roleModulePermissionDetails.PermissionShortCode
+                                            & x.ModuleShortCode==roleModulePermissionDetails.ModuleShortCode
+                                            & x.RoleShortCode==roleModulePermissionDetails.RoleShortCode).FirstOrDefault()==null)
+                        {
+                            roleModulePermissionDetails.CreatedDateTime = DateTime.Now;
+                            roleModulePermissionDetails.UpdatedDateTime = DateTime.Now;
+                            roleModulePermissionDetails.UpdatedBy="Admin";
+                            roleModulePermissionDetails.RoleID=null;
+                            roleModulePermissionDetails.CreatedBy="Admin";
+                            _context.ModuleRolePermissionDetails.Add(roleModulePermissionDetails);  
+                        }                       
+                    }
+
+                    foreach (var roleModulePermissionDetails in dbroles)
+                    {
+                        if (lstleadPropertyDetails.Where(x => x.PermissionShortCode==roleModulePermissionDetails.PermissionShortCode
+                                            & x.ModuleShortCode==roleModulePermissionDetails.ModuleShortCode
+                                            & x.RoleShortCode==roleModulePermissionDetails.RoleShortCode).FirstOrDefault()==null)
+                        {                          
+                            _context.ModuleRolePermissionDetails.Remove(roleModulePermissionDetails);
+                        }
+                    }
+                    await _context.SaveChangesAsync(); 
                 }
-                await _context.SaveChangesAsync();
                 return Ok();
             }
             catch (Exception ex)

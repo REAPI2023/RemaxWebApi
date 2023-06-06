@@ -12,8 +12,8 @@ using RemaxWebAPI.Models;
 namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
-    [Migration("20230529025715_Create_14")]
-    partial class Create_141
+    [Migration("20230606180412_Create_202")]
+    partial class Create_202
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,15 +49,12 @@ namespace RemaxWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("NextSchedule")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PhNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("PreviousSchedule")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LeadId");
 
@@ -312,6 +309,43 @@ namespace RemaxWebApi.Migrations
                     b.ToTable("ModulePermissionDetails");
                 });
 
+            modelBuilder.Entity("RemaxWebApi.Models.ModuleRolePermissionDetails", b =>
+                {
+                    b.Property<long?>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("RoleID"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModuleShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermissionShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("ModuleRolePermissionDetails");
+                });
+
             modelBuilder.Entity("RemaxWebApi.Models.ResidentialProperty", b =>
                 {
                     b.Property<int>("PropertyId")
@@ -388,6 +422,36 @@ namespace RemaxWebApi.Migrations
                     b.ToTable("ResidentialProperty");
                 });
 
+            modelBuilder.Entity("RemaxWebApi.Models.RoleModulePermissionDetails", b =>
+                {
+                    b.Property<string>("RoleShortCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModuleShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermissionShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleShortCode");
+
+                    b.ToTable("RoleModulePermissionDetails");
+                });
+
             modelBuilder.Entity("RemaxWebApi.Models.Schedule", b =>
                 {
                     b.Property<int>("ScheduleId")
@@ -426,6 +490,35 @@ namespace RemaxWebApi.Migrations
                     b.HasKey("ScheduleId");
 
                     b.ToTable("Schedule");
+                });
+
+            modelBuilder.Entity("RemaxWebApi.Models.Users", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

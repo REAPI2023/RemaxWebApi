@@ -306,6 +306,43 @@ namespace RemaxWebApi.Migrations
                     b.ToTable("ModulePermissionDetails");
                 });
 
+            modelBuilder.Entity("RemaxWebApi.Models.ModuleRolePermissionDetails", b =>
+                {
+                    b.Property<long?>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("RoleID"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModuleShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermissionShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleShortCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("ModuleRolePermissionDetails");
+                });
+
             modelBuilder.Entity("RemaxWebApi.Models.ResidentialProperty", b =>
                 {
                     b.Property<int>("PropertyId")
