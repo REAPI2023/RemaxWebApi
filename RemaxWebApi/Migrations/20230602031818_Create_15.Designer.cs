@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RemaxWebAPI.Models;
 
@@ -11,9 +12,11 @@ using RemaxWebAPI.Models;
 namespace RemaxWebApi.Migrations
 {
     [DbContext(typeof(RelEstDbContext))]
-    partial class RelEstDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230602031818_Create_15")]
+    partial class Create_15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,12 +49,15 @@ namespace RemaxWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("NextSchedule")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PhNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("PreviousSchedule")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("LeadId");
 
@@ -455,7 +461,7 @@ namespace RemaxWebApi.Migrations
                     b.ToTable("Schedule");
                 });
 
-            modelBuilder.Entity("RemaxWebApi.Models.Users", b =>
+            modelBuilder.Entity("RemaxWebApi.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -481,7 +487,7 @@ namespace RemaxWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }
