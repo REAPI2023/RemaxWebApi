@@ -22,11 +22,11 @@ namespace RemaxWebApi.Controllers
         */
 
         [HttpGet("{moduleShortCode}/{roleShortCode}", Name = "AllModulePermissionsbyRole")]
-        public List<CodeTypeValues> Allpermissions(string moduleShortCode,string roleShortCode)
+        public List<CodeTypeValues> Allpermissions(string moduleShortCode, string roleShortCode)
         {
             var data = (from mrp in _context.ModuleRolePermissionDetails
                         join ctv in _context.CodeTypeValues
-                        on mrp.PermissionShortCode equals ctv.ShortCode                        
+                        on mrp.PermissionShortCode equals ctv.ShortCode
                         where mrp.ModuleShortCode == moduleShortCode & ctv.CodeTypeShortCode=="PERMISSIONS" &mrp.RoleShortCode==roleShortCode
                         select new CodeTypeValues
                         {
@@ -37,5 +37,22 @@ namespace RemaxWebApi.Controllers
 
             return data;
         }
+
+        [HttpGet("{roleShortCode}", Name = "AllViewpermissions")]
+        public List<CodeTypeValues> AllViewpermissions(string roleShortCode)
+        {
+            var data = (from mrp in _context.ModuleRolePermissionDetails
+                        join ctv in _context.CodeTypeValues
+                        on mrp.PermissionShortCode equals ctv.ShortCode
+                        where  ctv.CodeTypeShortCode=="PERMISSIONS" &mrp.RoleShortCode==roleShortCode & mrp.PermissionShortCode=="VIEW"
+                        select new CodeTypeValues
+                        {
+                            CodeTypeShortCode= "Menus",
+                            ShortCode=mrp.ModuleShortCode,
+                            Description=ctv.Description
+                        }).ToList();
+
+            return data;
         }
+    }
 }
