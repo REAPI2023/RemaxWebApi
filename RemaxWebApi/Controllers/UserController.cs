@@ -17,6 +17,17 @@ namespace RemaxWebApi.Controllers
         {
             _context = context;
         }
+        [HttpGet("{email}", Name = "UserDetailsbyID")]
+        public Users GetUserDetails(string email)
+        {
+            var user= _context.Users.Where(x => x.Email==email).OrderByDescending(x => x.Id).FirstOrDefault();
+
+            if(user==null)
+            {
+                user = new Users() { Id=-1};
+            }
+            return user;
+        }
         [HttpGet(Name = "GetUserDetails")]
         public async Task<IActionResult> GetUserDetails()
         {
