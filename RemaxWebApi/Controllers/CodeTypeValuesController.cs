@@ -2,9 +2,11 @@
 using RemaxWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using RemaxWebApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RemaxWebApi.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CodeTypeValuesController : ControllerBase

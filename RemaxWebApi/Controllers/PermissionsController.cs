@@ -27,8 +27,9 @@ namespace RemaxWebApi.Controllers
             var data = (from mrp in _context.ModuleRolePermissionDetails
                         join ctv in _context.CodeTypeValues
                         on mrp.PermissionShortCode equals ctv.ShortCode                        
-                        where mrp.ModuleShortCode == moduleShortCode & ctv.CodeTypeShortCode=="PERMISSIONS" &mrp.RoleShortCode==roleShortCode
-                        select new CodeTypeValues
+                        where ((mrp.ModuleShortCode == moduleShortCode && ctv.CodeTypeShortCode=="PERMISSIONS" && mrp.RoleShortCode==roleShortCode)
+                        || roleShortCode.ToUpper().Equals("SUPERADMIN"))
+                         select new CodeTypeValues
                         {
                             CodeTypeShortCode= moduleShortCode,
                             ShortCode=ctv.ShortCode,
