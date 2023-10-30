@@ -15,7 +15,7 @@ namespace RemaxWebApi.Controllers
     {
         private readonly ILogger _logger;
         public readonly RelEstDbContext _context;
-        public LeadMgmtController(RelEstDbContext context,ILogger<LeadMgmtController> logger)
+        public LeadMgmtController(RelEstDbContext context, ILogger<LeadMgmtController> logger)
         {
             _context = context;
             _logger = logger;
@@ -40,6 +40,30 @@ namespace RemaxWebApi.Controllers
             //if (product == null)
             //    return NotFound();
             return Ok(product);
+        }
+        [HttpGet("{email}/{role}")]
+        public async Task<IActionResult> GetLeadsByUser(string email, string role)
+        {
+
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.Email == email);
+            if (user != null)
+            {
+                _logger.LogInformation("Fetching Lead information");
+                if (user.Role!=null && !user.Role.Contains("Admin"))
+                {
+                    var product = await _context.Leads.Where(m => m.UserId == user.Id).ToListAsync();
+                    return Ok(product);
+                }
+                else
+                {
+                    var product = await _context.Leads.ToListAsync();
+                    return Ok(product);
+                }
+            }
+            else
+            {
+                return Ok(new List<Leads>());
+            }
         }
 
         [HttpPost]
