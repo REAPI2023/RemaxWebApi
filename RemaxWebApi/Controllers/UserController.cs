@@ -17,9 +17,10 @@ namespace RemaxWebApi.Controllers
         {
             private readonly IJwtAuth jwtAuth;
             private readonly RelEstDbContext _context;
-    
-            public UserController(IJwtAuth jwtAuth,RelEstDbContext context)
-            {
+
+        //public UserController(IJwtAuth jwtAuth,RelEstDbContext context)
+        public UserController(IJwtAuth jwtAuth, RelEstDbContext context)
+        {
                 this.jwtAuth = jwtAuth;
                 this._context = context;
             }
