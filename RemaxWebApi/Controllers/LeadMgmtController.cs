@@ -25,7 +25,25 @@ namespace RemaxWebApi.Controllers
         [HttpGet(Name = "GetLeadDetails")]
         public async Task<IActionResult> Index()
         {
-            return Ok(await _context.Leads.ToListAsync());
+            List<Leads> leads = new List<Leads> { new Leads() { 
+                Budget = 200000
+            , Criteria = "2BKH"
+            , LeadId = 1
+            , LeadStatus = "Active"
+            , Name = "Keshava"
+            , PhNumber="9878975672"
+            , UserId = 2},
+            new Leads() {
+                Budget = 100000
+            , Criteria = "3BKH"
+            , LeadId = 2
+            , LeadStatus = "Active"
+            , Name = "Pushyam"
+            , PhNumber="9878912345"
+            , UserId = 2}
+            };
+            return Ok(leads);
+            //return Ok(await _context.Leads.ToListAsync());
         }
 
 
